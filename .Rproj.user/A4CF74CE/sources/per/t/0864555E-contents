@@ -1,0 +1,311 @@
+---
+title: "BMP treatments"
+output: html_document
+fig_caption : yes
+theme : cerulean
+toc : yes
+toc_depth : 3
+toc_float : yes
+---
+
+# 1. Download packages
+
+```{r}
+library("patchwork")
+library("forcats")
+library ("multcompView")
+library("ggplot2") 
+library("Hmisc")
+library("tidyverse")
+library("dplyr")
+library("RColorBrewer")
+library("metacoder")
+library("patchwork")
+library("gridExtra")
+library("microeco")
+library("metan")
+library("htmltools")
+
+options(timeout = 1000)
+tmp <- c("microeco", "mecoturn", "MASS", "GUniFrac", "ggpubr", "randomForest", "ggdendro", "ggrepel", "agricolae", "igraph", "picante", "pheatmap", "rgexf", 
+         "ggalluvial", "ggh4x", "rcompanion", "FSA", "gridExtra", "aplot", "NST", "GGally", "ggraph", "networkD3", "poweRlaw", "ggtern", "SRS")
+# Now check or install
+for(x in tmp){
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE)
+  }
+}
+
+install.packages("BiocManager")
+install.packages("file2meco", repos = BiocManager::repositories())
+install.packages("MicrobiomeStat", repos = BiocManager::repositories())
+install.packages("WGCNA", repos = BiocManager::repositories())
+BiocManager::install("ggtree")
+BiocManager::install("metagenomeSeq")
+BiocManager::install("ALDEx2")
+BiocManager::install("ANCOMBC")
+devtools::install_local(paste0(tmp, "/", "SpiecEasi-master.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "mixedCCA-master.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "SPRING-master.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "NetCoMi-main.zip"), repos = BiocManager::repositories())
+devtools::install_local(paste0(tmp, "/", "beem-static-master.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "chorddiag-master.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "ggradar-master.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "ggnested-main.zip"), dependencies = TRUE)
+devtools::install_local(paste0(tmp, "/", "ggcor-1-master.zip"), dependencies = TRUE)
+
+```
+
+# 2. Import the data
+## 2.1. Anova data
+
+```{r}
+file1 <- 'BMP-ANOVA.csv'
+BMP1 <- read.csv(file1, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+str(BMP1)
+BMP_sludge <- BMP1[1:15,]
+BMP_MCC <- BMP1[16:30,]
+
+```
+
+## 2.2. Data for microbial analysis
+```{r}
+file2 <- 'RelativeAbundanceBMP.csv'
+Data1 <- read.csv(file2, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+file3 <- 'Taxonomy.csv'
+Data2 <- read.csv(file3, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+file4 <- 'CaracterizationBMP.csv'
+Data3 <- read.csv(file4, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+
+file5 <- 'Abundancetaxonomy.csv'
+Data4 <- read.csv(file5, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+```
+## 2.3. Data for correlation analysis
+```{r}
+file6 <- 'CorrelationBMPMCC.csv'
+MCC <- read.csv(file6, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+file7 <- 'CorrelationBMPSS.csv'
+SS <- read.csv(file7, sep = ";",dec = ",", na.strings = c("", " ", "NA"),stringsAsFactors = T)
+```
+# 3. ANOVA analysis
+## 3.1. Anova BMP
+```{r}
+ANOVAsludge <- aov(BMP ~ Temperature * factor(Inoculum), data=BMP_sludge)
+  summary(ANOVAsludge)
+  ANOVAsludge$coefficients
+  
+ANOVAMCC <- aov(BMP ~ Temperature * factor(Inoculum), data=BMP_MCC)
+  summary(ANOVAMCC)
+```
+## 3.2. Anova t80
+```{r}
+ANOVAsludge <- aov(t80 ~ Temperature * factor(Inoculum), data=BMP_sludge)
+summary(ANOVAsludge)
+
+ANOVAMCC <- aov(t80 ~ Temperature * factor(Inoculum), data=BMP_MCC)
+summary(ANOVAMCC)
+
+```
+## 3.3. Tukey t80
+```{r}
+TukeySludge <- TukeyHSD(ANOVAsludge)
+print (TukeySludge)
+
+TukeyMCC <- TukeyHSD(ANOVAMCC)
+print (TukeyMCC)
+
+TukeySludge.cld <- multcompLetters4(ANOVAsludge,TukeySludge)
+print(TukeySludge.cld)
+
+TukeyMCC.cld <- multcompLetters4(ANOVAMCC,TukeyMCC)
+print(TukeyMCC.cld)
+```
+# 3. Microbial analysis
+## 3.1. Bacterial abundance at Phylum level
+```{r}
+dat2 <- Data1 %>%
+  pivot_longer(-X.OTU.ID, names_to = "Sample_ID", values_to = "Value")
+dat2
+
+dat2 <- dat2 %>%
+  left_join(Data2, by = "X.OTU.ID")
+dat2
+
+dat2 <- dat2 %>%
+  left_join(Data3, by = "Sample_ID")
+dat2
+dat2[dat2==0] <- NA
+datcom2 <-dat2[complete.cases(dat2),]
+
+nb.cols2 <- 30
+mycolors2 <- colorRampPalette(brewer.pal(30, "Paired"))(nb.cols2)
+datcom2 %>%
+  ggplot(aes(x = Sample_ID, y = Value)) + 
+  geom_bar(aes(fill= Phylum), stat = "identity", position = "fill")+
+  scale_fill_manual(values = mycolors2) +
+  xlab("Sample") + ylab("Relative abundance")+
+  facet_grid(~ Origin, scales = "free_x", space = "free_x")
+```
+## 3.2. Heat trees at Genus level
+## 3.2.1. Data preparation
+
+```{r}
+OTU_dat <- left_join(Data4, Data2,
+                                 by = c("X.OTU.ID" = "X.OTU.ID"))
+
+OTU_datI1MES <- OTU_dat[,-c(3:6)]
+OTU_datI1MES[OTU_datI1MES==0] <- NA
+OTU_datI1MEScom <-OTU_datI1MES[complete.cases(OTU_datI1MES),]
+
+OTU_datI2MES <- OTU_dat[,-c(2,4:6)]
+OTU_datI2MES[OTU_datI2MES==0] <- NA
+OTU_datI2MEScom <-OTU_datI2MES[complete.cases(OTU_datI2MES),]
+
+OTU_datI2THER <- OTU_dat[,-c(2,3,5,6)]
+OTU_datI2THER[OTU_datI2THER==0] <- NA
+OTU_datI2THERcom <-OTU_datI2THER[complete.cases(OTU_datI2THER),]
+
+OTU_datI3MESO <- OTU_dat[,-c(2:4,6)]
+OTU_datI3MESO[OTU_datI3MESO==0] <- NA
+OTU_datI3MESOcom <-OTU_datI3MESO[complete.cases(OTU_datI3MESO),]
+
+OTU_datI3THER <- OTU_dat[,-c(2:5)]
+OTU_datI3THER[OTU_datI3THER==0] <- NA
+OTU_datI3THERcom <-OTU_datI3THER[complete.cases(OTU_datI3THER),]
+```
+## 3.2.2. Data parsing
+
+```{r}
+datataxonomyI1MES <- parse_tax_data(OTU_datI1MEScom,
+                                 class_cols = "taxonomy",
+                                 class_sep = ";",
+                                 class_regex = "^([a-z]{0,1})_{0,2}(.*)$",
+                                 class_key = c("tax_rank" = "taxon_rank", "name" = "taxon_name"))
+
+datataxonomyI2MES <- parse_tax_data(OTU_datI2MEScom,
+                                 class_cols = "taxonomy",
+                                 class_sep = ";",
+                                 class_regex = "^([a-z]{0,1})_{0,2}(.*)$",
+                                 class_key = c("tax_rank" = "taxon_rank", "name" = "taxon_name"))
+
+datataxonomyI2THER <- parse_tax_data(OTU_datI2THERcom,
+                                 class_cols = "taxonomy",
+                                 class_sep = ";",
+                                 class_regex = "^([a-z]{0,1})_{0,2}(.*)$",
+                                 class_key = c("tax_rank" = "taxon_rank", "name" = "taxon_name"))
+
+datataxonomyI3MESO <- parse_tax_data(OTU_datI3MESOcom,
+                                 class_cols = "taxonomy",
+                                 class_sep = ";",
+                                 class_regex = "^([a-z]{0,1})_{0,2}(.*)$",
+                                 class_key = c("tax_rank" = "taxon_rank", "name" = "taxon_name"))
+
+datataxonomyI3THER <- parse_tax_data(OTU_datI3THERcom,
+                                 class_cols = "taxonomy",
+                                 class_sep = ";",
+                                 class_regex = "^([a-z]{0,1})_{0,2}(.*)$",
+                                 class_key = c("tax_rank" = "taxon_rank", "name" = "taxon_name"))
+
+
+names(datataxonomyI1MES$data) <- "OTU_counts"
+names(datataxonomyI2MES$data) <- "OTU_counts"
+names(datataxonomyI2THER$data) <- "OTU_counts"
+names(datataxonomyI3MESO$data) <- "OTU_counts"
+names(datataxonomyI3THER$data) <- "OTU_counts"
+```
+
+## 3.2.2. Heat trees visualization
+```{r}
+datataxonomyI1MES %>% 
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "g", supertaxa = TRUE) %>% # subset to the order rank
+  heat_tree(node_label = gsub(pattern = "\\[|\\]", replacement = "", taxon_names),
+            node_size = n_obs,
+            node_color = n_obs,
+            node_color_axis_label = "OTU count",
+            title = "I1_meso",
+            layout = "davidson-harel", initial_layout = "reingold-tilford")
+
+datataxonomyI2MES %>% 
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "g", supertaxa = TRUE) %>% # subset to the order rank
+  heat_tree(node_label = gsub(pattern = "\\[|\\]", replacement = "", taxon_names),
+            node_size = n_obs,
+            node_color = n_obs,
+            node_color_axis_label = "OTU count",
+            title = "I2_meso",
+            layout = "davidson-harel", initial_layout = "reingold-tilford")
+
+datataxonomyI2THER %>% 
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "g", supertaxa = TRUE) %>% # subset to the order rank
+  heat_tree(node_label = gsub(pattern = "\\[|\\]", replacement = "", taxon_names),
+            node_size = n_obs,
+            node_color = n_obs,
+            node_color_axis_label = "OTU count",
+            title = "I2_thermo",
+            layout = "davidson-harel", initial_layout = "reingold-tilford")
+
+datataxonomyI3MESO %>% 
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "g", supertaxa = TRUE) %>% # subset to the order rank
+  heat_tree(node_label = gsub(pattern = "\\[|\\]", replacement = "", taxon_names),
+            node_size = n_obs,
+            node_color = n_obs,
+            node_color_axis_label = "OTU count",
+            title = "I3_meso",
+            layout = "davidson-harel", initial_layout = "reingold-tilford")
+
+datataxonomyI3THER %>% 
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "g", supertaxa = TRUE) %>% # subset to the order rank
+  heat_tree(node_label = gsub(pattern = "\\[|\\]", replacement = "", taxon_names),
+            node_size = n_obs,
+            node_color = n_obs,
+            node_color_axis_label = "OTU count",
+            title = "I3_thermo",
+            layout = "davidson-harel", initial_layout = "reingold-tilford")
+```
+# 3.3. Correlation analysis
+## 3.3.1. Alpha diversity indices
+
+```{r}
+Data5 <- Data4[,-c(1,7)]
+rownames(Data5) <- Data4[,1]
+Data6 <- Data3
+rownames(Data6) <- Data3[,1]
+Data7 <- Data2[,-1]
+rownames(Data7) <- Data2[,1]
+
+dataset <- microtable$new(sample_table = Data6, otu_table = Data5, tax_table = Data7)
+
+dataset$rarefy_samples(sample.size = 1500)
+
+dataset$cal_abund()
+
+dataset$cal_alphadiv(PD = FALSE)
+dataset$alpha_diversity
+
+```
+
+## 3.3.1. Correlation between relative abundance and inoula caracteristics
+```{r}
+t2 <- trans_diff$new(dataset = dataset, method  = "metastat",group = "Sample_ID", alpha = 0.1,
+                     
+                                       p_adjust_method ="none", taxa_level = "Genus")
+t1 <- trans_env$new(dataset = dataset, add_data = Data6[,-c(13:16)])
+t1$cal_cor(use_data = "other", p_adjust_method = "fdr",
+           other_taxa = t2$res_diff$Taxa[1:60], cor_method = "pearson")
+t1$plot_cor()
+
+```
+
+## 3.3.1. Correlation between relative abundance and inoula caracteristics
+```{r}
+MCC1 <- MCC [,-c(1,2)] 
+SS1 <- SS[,-c(1,2)]
+corrMCC <- corr_coef(MCC1)
+corrSS <- corr_coef(SS1)
+plot (corrMCC)
+plot (corrSS)
+```

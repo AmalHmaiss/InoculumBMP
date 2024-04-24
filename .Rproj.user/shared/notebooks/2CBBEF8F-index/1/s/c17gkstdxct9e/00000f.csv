@@ -1,0 +1,490 @@
+"0","library(""patchwork"")"
+"2","Avis : le package ‘patchwork’ a été compilé avec la version R 4.2.3"
+"0","library(""forcats"")"
+"2","Avis : le package ‘forcats’ a été compilé avec la version R 4.2.3"
+"0","library (""multcompView"")"
+"2","Avis : le package ‘multcompView’ a été compilé avec la version R 4.2.3"
+"0","library(""ggplot2"") "
+"2","Avis : le package ‘ggplot2’ a été compilé avec la version R 4.2.3"
+"0","library(""Hmisc"")"
+"2","Avis : le package ‘Hmisc’ a été compilé avec la version R 4.2.3"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","
+Attachement du package : ‘Hmisc’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:base’:
+
+    format.pval, units
+
+"
+"0","library(""tidyverse"")"
+"2","Avis : le package ‘tidyverse’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘tibble’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘tidyr’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘readr’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘purrr’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘dplyr’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘stringr’ a été compilé avec la version R 4.2.3"
+"2","Avis : le package ‘lubridate’ a été compilé avec la version R 4.2.3"
+"2","── [1mAttaching core tidyverse packages[22m ───────────────────── tidyverse 2.0.0 ──
+[32m✔[39m [34mdplyr    [39m 1.1.4     [32m✔[39m [34mstringr  [39m 1.5.1
+[32m✔[39m [34mlubridate[39m 1.9.3     [32m✔[39m [34mtibble   [39m 3.2.1
+[32m✔[39m [34mpurrr    [39m 1.0.2     [32m✔[39m [34mtidyr    [39m 1.3.1
+[32m✔[39m [34mreadr    [39m 2.1.5     "
+"2","── [1mConflicts[22m ─────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m    masks [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m       masks [34mstats[39m::lag()
+[31m✖[39m [34mdplyr[39m::[32msrc()[39m       masks [34mHmisc[39m::src()
+[31m✖[39m [34mdplyr[39m::[32msummarize()[39m masks [34mHmisc[39m::summarize()
+[36mℹ[39m Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors"
+"0","library(""dplyr"")"
+"0","library(""RColorBrewer"")"
+"0","library(""metacoder"")"
+"2","Avis : le package ‘metacoder’ a été compilé avec la version R 4.2.3"
+"2","This is metacoder version 0.3.7 (stable)
+"
+"2","
+Attachement du package : ‘metacoder’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    map_data
+
+"
+"0","library(""patchwork"")"
+"0","library(""gridExtra"")"
+"2","Avis : le package ‘gridExtra’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘gridExtra’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    combine
+
+"
+"0","library(""microeco"")"
+"2","Avis : le package ‘microeco’ a été compilé avec la version R 4.2.3"
+"0","library(""metan"")"
+"2","Avis : le package ‘metan’ a été compilé avec la version R 4.2.3"
+"2","Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+"
+"2","|=========================================================|
+"
+"2","| Multi-Environment Trial Analysis (metan) v1.18.0        |
+"
+"2","| Author: Tiago Olivoto                                   |
+"
+"2","| Type 'citation('metan')' to know how to cite metan      |
+"
+"2","| Type 'vignette('metan_start')' for a short tutorial     |
+"
+"2","| Visit 'https://bit.ly/pkgmetan' for a complete tutorial |
+"
+"2","|=========================================================|
+"
+"2","
+Attachement du package : ‘metan’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    recode_factor
+
+"
+"2","L'objet suivant est masqué depuis ‘package:tidyr’:
+
+    replace_na
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:tibble’:
+
+    column_to_rownames, remove_rownames, rownames_to_column
+
+"
+"2","L'objet suivant est masqué depuis ‘package:forcats’:
+
+    as_factor
+
+"
+"0","install.packages(""htmltools"")"
+"1","Error in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," : "
+"1",""
+"1","Updating loaded packages"
+"1",""
+"1","
+"
+"0","options(timeout = 1000)"
+"0","tmp <- c(""microeco"", ""mecoturn"", ""MASS"", ""GUniFrac"", ""ggpubr"", ""randomForest"", ""ggdendro"", ""ggrepel"", ""agricolae"", ""igraph"", ""picante"", ""pheatmap"", ""rgexf"", "
+"0","         ""ggalluvial"", ""ggh4x"", ""rcompanion"", ""FSA"", ""gridExtra"", ""aplot"", ""NST"", ""GGally"", ""ggraph"", ""networkD3"", ""poweRlaw"", ""ggtern"", ""SRS"")"
+"0","# Now check or install"
+"0","for(x in tmp){"
+"0","  if(!require(x, character.only = TRUE)) {"
+"0","    install.packages(x, dependencies = TRUE)"
+"0","  }"
+"0","}"
+"2","Le chargement a nécessité le package : mecoturn
+"
+"2","Avis : le package ‘mecoturn’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : MASS
+"
+"2","
+Attachement du package : ‘MASS’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:metan’:
+
+    select
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    select
+
+"
+"2","L'objet suivant est masqué depuis ‘package:patchwork’:
+
+    area
+
+"
+"2","Le chargement a nécessité le package : GUniFrac
+"
+"2","Avis : le package ‘GUniFrac’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : ggpubr
+"
+"2","Avis : le package ‘ggpubr’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : randomForest
+"
+"2","Avis : le package ‘randomForest’ a été compilé avec la version R 4.2.3"
+"2","randomForest 4.7-1.1
+"
+"2","Type rfNews() to see new features/changes/bug fixes.
+"
+"2","
+Attachement du package : ‘randomForest’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:gridExtra’:
+
+    combine
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    combine
+
+"
+"2","L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    margin
+
+"
+"2","Le chargement a nécessité le package : ggdendro
+"
+"2","Avis : le package ‘ggdendro’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘ggdendro’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:Hmisc’:
+
+    label
+
+"
+"2","Le chargement a nécessité le package : ggrepel
+"
+"2","Avis : le package ‘ggrepel’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : agricolae
+"
+"2","Avis : le package ‘agricolae’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : igraph
+"
+"2","Avis : le package ‘igraph’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘igraph’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:agricolae’:
+
+    similarity
+
+"
+"2","L'objet suivant est masqué depuis ‘package:metacoder’:
+
+    hierarchy
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:lubridate’:
+
+    %--%, union
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:dplyr’:
+
+    as_data_frame, groups, union
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:purrr’:
+
+    compose, simplify
+
+"
+"2","L'objet suivant est masqué depuis ‘package:tidyr’:
+
+    crossing
+
+"
+"2","L'objet suivant est masqué depuis ‘package:tibble’:
+
+    as_data_frame
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:stats’:
+
+    decompose, spectrum
+
+"
+"2","L'objet suivant est masqué depuis ‘package:base’:
+
+    union
+
+"
+"2","Le chargement a nécessité le package : picante
+"
+"2","Avis : le package ‘picante’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : ape
+"
+"2","Avis : le package ‘ape’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘ape’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:igraph’:
+
+    degree, edges, mst, ring
+
+"
+"2","L'objet suivant est masqué depuis ‘package:agricolae’:
+
+    consensus
+
+"
+"2","L'objet suivant est masqué depuis ‘package:ggpubr’:
+
+    rotate
+
+"
+"2","L'objet suivant est masqué depuis ‘package:metacoder’:
+
+    complement
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    where
+
+"
+"2","L'objet suivant est masqué depuis ‘package:Hmisc’:
+
+    zoom
+
+"
+"2","Le chargement a nécessité le package : vegan
+"
+"2","Avis : le package ‘vegan’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : permute
+"
+"2","Avis : le package ‘permute’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘permute’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:igraph’:
+
+    permute
+
+"
+"2","Le chargement a nécessité le package : lattice
+"
+"2","This is vegan 2.6-4
+"
+"2","
+Attachement du package : ‘vegan’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:igraph’:
+
+    diversity
+
+"
+"2","Le chargement a nécessité le package : nlme
+"
+"2","
+Attachement du package : ‘nlme’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    collapse
+
+"
+"2","Le chargement a nécessité le package : pheatmap
+"
+"2","Avis : le package ‘pheatmap’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : rgexf
+"
+"2","Avis : le package ‘rgexf’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : ggalluvial
+"
+"2","Avis : le package ‘ggalluvial’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : ggh4x
+"
+"2","Avis : le package ‘ggh4x’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘ggh4x’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    guide_axis_logticks
+
+"
+"2","Le chargement a nécessité le package : rcompanion
+"
+"2","Avis : le package ‘rcompanion’ a été compilé avec la version R 4.2.3"
+"2","Registered S3 method overwritten by 'httr':
+  method         from  
+  print.response rmutil
+"
+"2","Le chargement a nécessité le package : FSA
+"
+"2","Avis : le package ‘FSA’ a été compilé avec la version R 4.2.3"
+"2","Registered S3 methods overwritten by 'FSA':
+  method       from
+  confint.boot car 
+  hist.boot    car 
+"
+"2","## FSA v0.9.5. See citation('FSA') if used in publication.
+## Run fishR() for related website and fishR('IFAR') for related book.
+"
+"2","Le chargement a nécessité le package : aplot
+"
+"2","Avis : le package ‘aplot’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : NST
+"
+"2","Avis : le package ‘NST’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : GGally
+"
+"2","Avis : le package ‘GGally’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : ggraph
+"
+"2","Avis : le package ‘ggraph’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : networkD3
+"
+"2","Avis : le package ‘networkD3’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : poweRlaw
+"
+"2","Avis : le package ‘poweRlaw’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : ggtern
+"
+"2","Avis : le package ‘ggtern’ a été compilé avec la version R 4.2.3"
+"2","Registered S3 methods overwritten by 'ggtern':
+  method           from   
+  grid.draw.ggplot ggplot2
+  plot.ggplot      ggplot2
+  print.ggplot     ggplot2
+"
+"2","--
+Remember to cite, run citation(package = 'ggtern') for further info.
+--
+"
+"2","
+Attachement du package : ‘ggtern’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:aplot’:
+
+    ggsave
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:gridExtra’:
+
+    arrangeGrob, grid.arrange
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:ggplot2’:
+
+    aes, annotate, ggplot, ggplot_build, ggplot_gtable, ggplotGrob,
+    ggsave, layer_data, theme_bw, theme_classic, theme_dark,
+    theme_gray, theme_light, theme_linedraw, theme_minimal,
+    theme_void
+
+"
+"2","Le chargement a nécessité le package : SRS
+"
+"2","Avis : le package ‘SRS’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : shiny
+"
+"2","Avis : le package ‘shiny’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : DT
+"
+"2","Avis : le package ‘DT’ a été compilé avec la version R 4.2.3"
+"2","
+Attachement du package : ‘DT’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:shiny’:
+
+    dataTableOutput, renderDataTable
+
+"
+"2","L'objet suivant est masqué depuis ‘package:networkD3’:
+
+    JS
+
+"
+"2","Le chargement a nécessité le package : shinycssloaders
+"
+"2","Avis : le package ‘shinycssloaders’ a été compilé avec la version R 4.2.3"
+"2","Le chargement a nécessité le package : shinybusy
+"
+"2","Avis : le package ‘shinybusy’ a été compilé avec la version R 4.2.3"
+"0","install.packages(""BiocManager"")"
+"1","Error in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," : "
+"1",""
+"1","Updating loaded packages"
+"1",""
+"1","
+"
+"0","install.packages(""file2meco"", repos = BiocManager::repositories())"
+"2","'getOption(""repos"")' replaces Bioconductor standard repositories, see
+'help(""repositories"", package = ""BiocManager"")' for details.
+Replacement repositories:
+    CRAN: https://cran.rstudio.com/
+"
+"2","Installation du package dans ‘C:/Users/amalh/AppData/Local/R/win-library/4.2’
+(car ‘lib’ n'est pas spécifié)
+"
+"1","
+Restarting R session...
+
+"
+"1","
+Restarting R session...
+
+"

@@ -1,0 +1,31 @@
+﻿BMP number;Temperature;Inoculum;Substrate;BMP;t80
+6;Thermophilic;I1;Boue ;375,5780238;6
+6;Thermophilic;I1;Boue ;348,9462177;7
+8;Thermophilic;I2;Boue ;416,2330607;6
+8;Thermophilic;I2;Boue ;347,5427764;6
+8;Thermophilic;I2;Boue ;335,0789157;7
+7;Thermophilic;I3;Boue ;320,1701456;13
+7;Thermophilic;I3;Boue ;297,2151409;15
+9;Mesophilic;I1;Boue ;353,1417516;19
+9;Mesophilic;I1;Boue ;417,3872842;21
+9;Mesophilic;I2;Boue ;371,2826915;3
+9;Mesophilic;I2;Boue ;343,3574419;3
+9;Mesophilic;I2;Boue ;352,7223794;3
+9;Mesophilic;I3;Boue ;376,0886177;3
+9;Mesophilic;I3;Boue ;391,4742302;3
+9;Mesophilic;I3;Boue ;377,9536494;3
+6;Thermophilic;I1;MCC;330,0053589;5
+6;Thermophilic;I1;MCC;369,6775643;5
+6;Thermophilic;I1;MCC;370,8292901;5
+8;Thermophilic;I2;MCC;326,5965539;5
+8;Thermophilic;I2;MCC;364,126544;5
+7;Thermophilic;I3;MCC;376,6640722;12
+7;Thermophilic;I3;MCC;373,7884533;12
+7;Thermophilic;I3;MCC;377,4938062;12
+9;Mesophilic;I1;MCC;374,7739573;24
+9;Mesophilic;I1;MCC;362,0296839;23
+9;Mesophilic;I2;MCC;380,0045684;4
+9;Mesophilic;I2;MCC;376,4035583;4
+9;Mesophilic;I3;MCC;380,3911587;4
+9;Mesophilic;I3;MCC;336,6441498;4
+9;Mesophilic;I3;MCC;362,8017844;6
